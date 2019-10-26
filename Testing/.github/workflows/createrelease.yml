@@ -1,0 +1,99 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: "Release"
+    env:
+        ASPNETCORE_ENVIRONMENT: "Production"
+
+    runs-on: ubuntu-16.04
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+    - name: Setup .NET Core 3.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+
+    - name: Restore Nuget Packages
+      run: dotnet restore Testing.sln --source https://api.nuget.org/v3/index.json
+
+    - name: Build Code
+      run: dotnet build Testing.sln --configuration Release
+
+    - name: Run Unit Tests
+      run: |
+        echo "ASPNETCORE_ENVIRONMENT are > ${ASPNETCORE_ENVIRONMENT}"
+        dotnet test "UnitTests\UnitTests.csproj"
+
+    - name: Publish API
+      run: dotnet publish "MainProject\MainProject.csproj" --configuration Release --output publishOutput
+
+    - name: Setup .NET Core 2.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.0.0
+
+    - name: Extract Octopus Tools
+      run: |
+        mkdir /opt/octo
+        cd /opt/octo
+        wget -O /opt/octo/octopus.zip https://download.octopusdeploy.com/octopus-tools/6.12.0/OctopusTools.6.12.0.portable.zip
+        unzip /opt/octo/octopus.zip
+        chmod +x /opt/octo/Octo
+
+    - name: Pack Files for Octopus
+      run: >-
+        /opt/octo/Octo pack
+        --outFolder /home/runner/work/Testing/MainProject
+        --basePath /home/runner/work/Testing/MainProject/publishOutput
+        --id MainProject
+        --version ${{ steps.get_version.outputs.VERSION }}
+        --format zip
+        --verbose
+        --logLevel=verbose
+
+    - name: Push Package to Octopus
+      run: >-
+        /opt/octo/Octo push
+        --server http://sferguson.ddns.net:9001
+        --apiKey API-KSYYUGOWXYLZAQNJAAJJDNPAYC
+        --package /home/runner/work/Testing/MainProject/MainProject.${{ steps.get_version.outputs.VERSION }}.zip
+        --overwrite-mode IgnoreIfExists
+    
+    - name: Get Release
+        - id: getrelease
+        uses: octokit/request-action@v1.x
+        with:
+          route: GET /repos/:owner/:repo/releases/${{ steps.get_version.outputs.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Release Notes
+      - id: buildreleasenotes
+        uses: gr2m/get-json-paths-action@v1.x
+        with:
+          json: ${{ steps.getrelease.outputs.data }}
+          releasenote: "data.body"
+      - run: "echo release note: ${{ steps.buildreleasenotes.outputs.releasenote }}"
+      - run: echo ::set-output name=RELEASENOTE::${{ steps.buildreleasenotes.outputs.releasenote }}
+
+    - name: Create & Deploy Release in Octopus
+      run: >-
+        /opt/octo/Octo create-release
+        --server http://sferguson.ddns.net:9001
+        --apiKey API-KSYYUGOWXYLZAQNJAAJJDNPAYC
+        --project Testing
+        --version ${{ steps.get_version.outputs.VERSION }}
+        --channel Default
+        --releasenotes=${{ steps.buildreleasenotes.outputs.RELEASENOTE }}
+    
