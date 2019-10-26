@@ -55,7 +55,7 @@ jobs:
       run: >-
         /opt/octo/Octo pack
         --outFolder /home/runner/work/Testing/Testing/MainProject
-        --basePath /home/runner/work/Testing/Testing/MainProject/publishOutput
+        --basePath /home/runner/work/Testing/Testing/publishOutput
         --id MainProject
         --version ${{ steps.get_version.outputs.VERSION }}
         --format zip
