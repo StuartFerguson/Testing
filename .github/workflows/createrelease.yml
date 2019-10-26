@@ -25,18 +25,18 @@ jobs:
         dotnet-version: 3.0.100
 
     - name: Restore Nuget Packages
-      run: dotnet restore Testing.sln --source https://api.nuget.org/v3/index.json
+      run: dotnet restore Testing\Testing.sln --source https://api.nuget.org/v3/index.json
 
     - name: Build Code
-      run: dotnet build Testing.sln --configuration Release
+      run: dotnet build Testing\Testing.sln --configuration Release
 
     - name: Run Unit Tests
       run: |
         echo "ASPNETCORE_ENVIRONMENT are > ${ASPNETCORE_ENVIRONMENT}"
-        dotnet test "UnitTests\UnitTests.csproj"
+        dotnet test "Testing\UnitTests\UnitTests.csproj"
 
     - name: Publish API
-      run: dotnet publish "MainProject\MainProject.csproj" --configuration Release --output publishOutput
+      run: dotnet publish "Testing\MainProject\MainProject.csproj" --configuration Release --output publishOutput
 
     - name: Setup .NET Core 2.0
       uses: actions/setup-dotnet@v1
