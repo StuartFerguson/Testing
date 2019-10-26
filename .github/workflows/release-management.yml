@@ -1,9 +1,10 @@
 name: Release Management
 
 on:
-  pull_request:
+  push:
+    # branches to consider in the event; optional, defaults to all
     branches:
-    - master
+      - master
 
 jobs:
   update_draft_release:
