@@ -25,18 +25,18 @@ jobs:
         dotnet-version: 3.0.100
 
     - name: Restore Nuget Packages
-      run: dotnet restore Testing\Testing.sln --source https://api.nuget.org/v3/index.json
+      run: dotnet restore Testing/Testing.sln --source https://api.nuget.org/v3/index.json
 
     - name: Build Code
-      run: dotnet build Testing\Testing.sln --configuration Release
+      run: dotnet build Testing/Testing.sln --configuration Release
 
     - name: Run Unit Tests
       run: |
         echo "ASPNETCORE_ENVIRONMENT are > ${ASPNETCORE_ENVIRONMENT}"
-        dotnet test "Testing\UnitTests\UnitTests.csproj"
+        dotnet test "Testing/UnitTests/UnitTests.csproj"
 
     - name: Publish API
-      run: dotnet publish "Testing\MainProject\MainProject.csproj" --configuration Release --output publishOutput
+      run: dotnet publish "Testing/MainProject/MainProject.csproj" --configuration Release --output publishOutput
 
     - name: Setup .NET Core 2.0
       uses: actions/setup-dotnet@v1
@@ -54,8 +54,8 @@ jobs:
     - name: Pack Files for Octopus
       run: >-
         /opt/octo/Octo pack
-        --outFolder /home/runner/work/Testing/MainProject
-        --basePath /home/runner/work/Testing/MainProject/publishOutput
+        --outFolder /home/runner/work/Testing/Testing/MainProject
+        --basePath /home/runner/work/Testing/Testing/MainProject/publishOutput
         --id MainProject
         --version ${{ steps.get_version.outputs.VERSION }}
         --format zip
@@ -67,7 +67,7 @@ jobs:
         /opt/octo/Octo push
         --server http://sferguson.ddns.net:9001
         --apiKey API-KSYYUGOWXYLZAQNJAAJJDNPAYC
-        --package /home/runner/work/Testing/MainProject/MainProject.${{ steps.get_version.outputs.VERSION }}.zip
+        --package /home/runner/work/Testing/Testing/MainProject/MainProject.${{ steps.get_version.outputs.VERSION }}.zip
         --overwrite-mode IgnoreIfExists
     
     - name: Get Release
