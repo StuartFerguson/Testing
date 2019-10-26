@@ -71,7 +71,7 @@ jobs:
         --overwrite-mode IgnoreIfExists
     
     - name: Get Release
-    - id: getrelease
+      id: getrelease
       uses: octokit/request-action@v1.x
       with:
           route: GET /repos/:owner/:repo/releases/${{ steps.get_version.outputs.VERSION }}
@@ -79,7 +79,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build Release Notes
-    - id: buildreleasenotes
+      id: buildreleasenotes
       uses: gr2m/get-json-paths-action@v1.x
       with:
           json: ${{ steps.getrelease.outputs.data }}
