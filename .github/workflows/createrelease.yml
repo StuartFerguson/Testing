@@ -83,7 +83,7 @@ jobs:
       uses: gr2m/get-json-paths-action@v1.x
       with:
           json: ${{ steps.getrelease.outputs.data }}
-          releasenote: "name"
+          releasenote: "body"
           
     - run: "echo release note: ${{ steps.buildreleasenotes.outputs.releasenote }}"
       
@@ -97,5 +97,5 @@ jobs:
         --project Testing
         --version ${{ steps.get_version.outputs.VERSION }}
         --channel Default
-        --releasenotes=${{ steps.buildreleasenotes.outputs.RELEASENOTE }}
+        --releasenotes="${{ steps.buildreleasenotes.outputs.RELEASENOTE }}"
     
