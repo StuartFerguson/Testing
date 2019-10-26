@@ -97,5 +97,5 @@ jobs:
         --project Testing
         --version ${{ steps.get_version.outputs.VERSION }}
         --channel Default
-        --releasenotes="${{ steps.buildreleasenotes.outputs.RELEASENOTE }}"
+        --releasenotes "${{ steps.buildreleasenotes.outputs.RELEASENOTE }}"
     
