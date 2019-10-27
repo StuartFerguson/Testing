@@ -85,9 +85,9 @@ jobs:
           json: ${{ steps.getrelease.outputs.data }}
           releasenote: "body"
           
-    - run: "echo release note: ${{ steps.buildreleasenotes.outputs.releasenote }}"
+    #- run: "echo release note: ${{ steps.buildreleasenotes.outputs.releasenote }}"
       
-    - run: echo ::set-output name=RELEASENOTE::${{ steps.buildreleasenotes.outputs.releasenote }}
+    #- run: echo ::set-output name=RELEASENOTE::${{ steps.buildreleasenotes.outputs.releasenote }}
 
     - name: Create & Deploy Release in Octopus
       run: >-
@@ -97,5 +97,5 @@ jobs:
         --project Testing
         --version ${{ steps.get_version.outputs.VERSION }}
         --channel Default
-        --releasenotes "${{ steps.buildreleasenotes.outputs.RELEASENOTE }}"
+        --releasenotes "${{ steps.buildreleasenotes.outputs.releasenote }}"
     
