@@ -15,29 +15,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    
+    - name: Prerequsites
+      run: Install-WindowsFeature -Name Hyper-V,Containers -IncludeAllSubFeature -IncludeManagementTools
 
-    - name: Uninstall Docker CE
-      run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
+    #- name: Uninstall Docker CE
+    #  run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
     
-    - name: Enable Nested Virtualization
-      run: |
-        import-module hyperv
-        Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
+    #- name: Enable Nested Virtualization
+    #  run: |
+    #    import-module hyperv
+    #    Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
     
-    - name: Install Preview build of Docker EE
-      run: |
-        Install-Module DockerProvider
-        Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview
+    #- name: Install Preview build of Docker EE
+    #  run: |
+    #    Install-Module DockerProvider
+    #    Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview
         
-    - name: Enable LinuxKit system
-      run: |
-        [System.Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
+    #- name: Enable LinuxKit system
+    #  run: |
+    #    [System.Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
         
-    - name: Restart Docker Service
-      run: Restart-Service docker
+    #- name: Restart Docker Service
+    #  run: Restart-Service docker
     
-    - name: Start Linux Container
-      run: docker run -i ubuntu
+    #- name: Start Linux Container
+    #  run: docker run -i ubuntu
         
         
 
