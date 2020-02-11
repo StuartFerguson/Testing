@@ -16,14 +16,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    #- name: Uninstall Docker CE
-      #run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
-    #  run: Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Hyper-V-Tools-All
+    - name: Uninstall Docker CE
+      run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
     
-    #- name: Enable Nested Virtualization
-    #  run: |
-    #    import-module hyperv
-    #    Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
+    - name: Enable Nested Virtualization
+      run: |
+        import-module hyperv
+        Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
     
     - name: Install Preview build of Docker EE
       run: |
