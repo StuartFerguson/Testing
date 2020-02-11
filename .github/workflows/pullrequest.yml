@@ -16,8 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    #- name: Uninstall Docker CE
-    #  run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
+    - name: Uninstall Docker CE
+      #run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
+      run: Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Hyper-V-Tools-All
     
     - name: Enable Nested Virtualization
       run: |
