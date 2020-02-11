@@ -18,7 +18,7 @@ jobs:
     
     - name: Prerequsites
       run: |
-        import-module servermanager
+        import-module -SkipEditionCheck servermanager
         Install-WindowsFeature -Name Hyper-V,Containers -IncludeAllSubFeature -IncludeManagementTools
 
     #- name: Uninstall Docker CE
