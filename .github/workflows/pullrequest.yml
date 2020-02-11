@@ -1,1 +1,41 @@
+name: Build and Test Pull Requests
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    name: "Build and Test Pull Requests"
+    env:
+        ASPNETCORE_ENVIRONMENT: "Production"
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Uninstall Docker CE
+      run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
+    
+    - name: Enable Nested Virtualization
+      run: Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
+    
+    - name: Install Preview build of Docker EE
+      run: |
+        Install-Module DockerProvider
+        Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview
+        
+    - name: Enable LinuxKit system
+      run: |
+        [System.Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
+        
+    - name: Restart Docker Service
+      run: Restart-Service docker
+    
+    - name: Start Linux Container
+      run: docker run -it --rm ubuntu /bin/bash
+        
+        
 
