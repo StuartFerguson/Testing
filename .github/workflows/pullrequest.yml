@@ -17,7 +17,9 @@ jobs:
     - uses: actions/checkout@v1
     
     - name: Prerequsites
-      run: Install-WindowsFeature -Name Hyper-V,Containers -IncludeAllSubFeature -IncludeManagementTools
+      run: |
+        import-module servermanager
+        Install-WindowsFeature -Name Hyper-V,Containers -IncludeAllSubFeature -IncludeManagementTools
 
     #- name: Uninstall Docker CE
     #  run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
