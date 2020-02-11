@@ -38,7 +38,7 @@ jobs:
       run: Restart-Service docker
     
     - name: Start Linux Container
-      run: docker run -it --rm ubuntu /bin/bash
+      run: docker run -i ubuntu
         
         
 
