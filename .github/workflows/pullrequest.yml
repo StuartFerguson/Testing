@@ -20,7 +20,9 @@ jobs:
     #  run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
     
     - name: Enable Nested Virtualization
-      run: Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
+      run: |
+        import-module hyperv
+        Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
     
     #- name: Install Preview build of Docker EE
     #  run: |
