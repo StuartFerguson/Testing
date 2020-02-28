@@ -21,7 +21,7 @@ jobs:
       run: echo ::set-output name=VERSION::$(git tag --sort=committerdate  | tail -1)
     
     - name: Print Version
-      run: echo ${{ steps.get_version.outputs.VERSION }} + '.' + $GITHUB_RUN_NUMBER
+      run: echo ${{ steps.get_version.outputs.VERSION }}.$GITHUB_RUN_NUMBER
       
       
         
