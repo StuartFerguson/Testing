@@ -18,7 +18,7 @@ jobs:
 
     - name: Get the version
       id: get_version
-      run: echo ::set-output name=VERSION::$(git tag --sort=taggerdate | tail -1)
+      run: echo ::set-output name=VERSION::$(git tag --sort=committerdate  | tail -1)
     
     - name: Print Version
       run: echo ${{ steps.get_version.outputs.VERSION }}
