@@ -11,31 +11,19 @@ jobs:
     env:
         ASPNETCORE_ENVIRONMENT: "Production"
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
 
-    - name: Uninstall Docker CE
-      run: Uninstall-Package -Name docker -ProviderName DockerMSFTProvider
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(git tag --sort=committerdate  | tail -1)
     
-    - name: Enable Nested Virtualization
-      run: Get-VM WinContainerHost | Set-VMProcessor -ExposeVirtualizationExtensions $true
-    
-    - name: Install Preview build of Docker EE
-      run: |
-        Install-Module DockerProvider
-        Install-Package Docker -ProviderName DockerProvider -RequiredVersion preview
-        
-    - name: Enable LinuxKit system
-      run: |
-        [System.Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
-        
-    - name: Restart Docker Service
-      run: Restart-Service docker
-    
-    - name: Start Linux Container
-      run: docker run -it --rm ubuntu /bin/bash
+    - name: Print Version
+      run: echo ${{ steps.get_version.outputs.VERSION }}.$GITHUB_RUN_NUMBER
+      
+      
         
         
 
