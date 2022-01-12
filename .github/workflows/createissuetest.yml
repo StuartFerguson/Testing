@@ -3,7 +3,7 @@ name: Git Creation Demo
 jobs:
   gitIssueCreation:
     name: Git Creation Demo
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - name: oction-create-issue
     # You may pin to the exact commit or the version.
