@@ -1,22 +1,17 @@
-name: Release Management
-
-on:
-  push:
-    # branches to consider in the event; optional, defaults to all
-    branches:
-      - master
-
+on: push
+name: Git Creation Demo
 jobs:
-  test:
-    name: test job
-    runs-on: macos-latest
+  gitIssueCreation:
+    name: Git Creation Demo
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master	
-      - name: Git Issue Creation	
-        uses: bryannice/gitactions-git-issue-creation@2.1.0
-	env:
+      - uses: actions/checkout@master
+      - name: Git Creation Demo
+        uses: bryannice/gitactions-git-issue-creation@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_COMMIT_SHA: ${{ github.sha }}
           GITHUB_REPO_OWNER: 'TransactionProcessing'
           GITHUB_REPO_NAME: 'Testing'
-          GITHUB_ISSUE_TITLE: 'Test Issue Creation'
-          GITHUB_ISSUE_BODY: 'Test Issue Creation Body'
+          GITHUB_ISSUE_TITLE: 'Demo''ing Git Issue Creation'
+          GITHUB_ISSUE_BODY: 'Demo''ing Git Issue Creation'
