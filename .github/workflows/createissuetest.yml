@@ -17,8 +17,8 @@ jobs:
           # repo parameter
           repo: Testing
           # The title of the issue.
-          title: Test Title 
+          title: Investigate Nightly Build Failure
           # The contents of the issue.
-          body: Test Body
+          body: Url is ${{env.action_url}}  
           # Labels to associate with this issue. _NOTE: Only users with push access can set labels for new issues. Labels are silently dropped otherwise._
           labels: bug
