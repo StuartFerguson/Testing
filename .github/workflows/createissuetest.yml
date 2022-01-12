@@ -13,11 +13,11 @@ jobs:
       uses: maxkomarychev/oction-create-issue@v0.7.1
       with:
           # Token to authenticate the request
-          token: ${{ secrets.GITHUB_TOKEN }}
+          #token: ${{ secrets.GITHUB_TOKEN }}
           # owner parameter
-          owner: TransactionProcessing
+          #owner: TransactionProcessing
           # repo parameter
-          repo: Testing
+          #repo: Testing
           # The title of the issue.
           title: Investigate Nightly Build Failure
           # The contents of the issue.
