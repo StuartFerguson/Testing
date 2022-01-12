@@ -8,8 +8,10 @@ on:
 
 jobs:
   test:
+    name: test job
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@master	
       - name: Git Issue Creation	
         uses: bryannice/gitactions-git-issue-creation@2.1.0
 	env:
