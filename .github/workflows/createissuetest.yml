@@ -1,0 +1,20 @@
+name: Release Management
+
+on:
+  push:
+    # branches to consider in the event; optional, defaults to all
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Git Issue Creation
+      uses: bryannice/gitactions-git-issue-creation@2.1.0
+	    env:
+          GITHUB_COMMIT_SHA: ${{ github.sha }}
+          GITHUB_REPO_OWNER: 'TransactionProcessing'
+          GITHUB_REPO_NAME: 'Testing'
+          GITHUB_ISSUE_TITLE: 'Test Issue Creation'
+          GITHUB_ISSUE_BODY: 'Test Issue Creation Body'
