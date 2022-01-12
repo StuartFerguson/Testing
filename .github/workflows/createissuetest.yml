@@ -10,9 +10,9 @@ jobs:
   test:
     runs-on: macos-latest
     steps:
-      - name: Git Issue Creation
-      uses: bryannice/gitactions-git-issue-creation@2.1.0
-	    env:
+      - name: Git Issue Creation	
+        uses: bryannice/gitactions-git-issue-creation@2.1.0
+	env:
           GITHUB_COMMIT_SHA: ${{ github.sha }}
           GITHUB_REPO_OWNER: 'TransactionProcessing'
           GITHUB_REPO_NAME: 'Testing'
