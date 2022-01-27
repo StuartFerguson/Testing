@@ -19,8 +19,12 @@ jobs:
       uses: hmarr/debug-action@v2.0.1
 
     - name: Get prerelease flag
-      id: get_prerelease
-      run: echo ${{ github.event.release }}
+      if: ${{event.release.prerelease}} == 'true'
+      run: echo 'Pre release'
+      
+    - name: Get prerelease flag1
+      if: ${{event.release.prerelease}} == 'false'
+      run: echo 'Not Pre release'
       
     
 
