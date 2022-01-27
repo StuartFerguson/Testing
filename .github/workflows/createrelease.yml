@@ -15,6 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Debug action
+      uses: hmarr/debug-action@v2.0.1
+
     - name: Get prerelease flag
       id: get_prerelease
       run: echo ${{ github.event.release }}
