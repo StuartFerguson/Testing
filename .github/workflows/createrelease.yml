@@ -22,11 +22,11 @@ jobs:
       run: echo ${{ github.event.release.prerelease }}
       
     - name: Get prerelease flag
-      if: ${{ github.event.release.prerelease }} == true
+      if: ${{ github.event.release.prerelease == true }} 
       run: echo 'Pre release'
       
     - name: Get prerelease flag1
-      if: ${{ github.event.release.prerelease }} == false
+      if: ${{ github.event.release.prerelease == false }} 
       run: echo 'Not Pre release'
       
     
