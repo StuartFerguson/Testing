@@ -11,9 +11,10 @@ jobs:
       run: |
         cd /home/runner/work/Testing
         sudo ls -R
+        echo /home/runner/work/Testing/Testing/MainProject/MainProject.csproj
       
     - name: Hello world action step
       uses: TransactionProcessing/actions@0.0.4
       with:
-        filepath: '~/home/runner/work/Testing/Testing/MainProject/MainProject.csproj'
+        filepath: 'home/runner/work/Testing/Testing/MainProject/MainProject.csproj'
         versionnumber: 2.0.0
