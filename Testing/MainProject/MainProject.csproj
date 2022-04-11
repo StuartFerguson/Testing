@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <ApplicationVersion>1</ApplicationVersion>
   </PropertyGroup>
+  
 
 </Project>
