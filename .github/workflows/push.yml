@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: TransactionProcessing/actions@0.0.3
+        uses: TransactionProcessing/actions@0.0.4
         with:
           filepath: '/Testing/MainProject/MainProject.csproj'
           versionnumber: 2.0.0
