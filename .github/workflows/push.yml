@@ -5,9 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: TransactionProcessing/actions@0.0.4
-        with:
-          filepath: '/Testing/MainProject/MainProject.csproj'
-          versionnumber: 2.0.0
+    - uses: actions/checkout@v2.3.4
+
+    - name: Hello world action step
+      uses: TransactionProcessing/actions@0.0.4
+      with:
+        filepath: '/Testing/MainProject/MainProject.csproj'
+        versionnumber: 2.0.0
