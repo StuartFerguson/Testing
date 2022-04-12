@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1</ApplicationDisplayVersion>
   </PropertyGroup>
   
 
